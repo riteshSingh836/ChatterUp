@@ -1,4 +1,6 @@
-const socket = io.connect("http://localhost:5000");
+import { PORT } from "../server";
+
+const socket = io.connect(PORT);
 
 const inputMessage = document.getElementById('input-msg');
 const sendButton = document.getElementById('send-btn');

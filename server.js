@@ -82,7 +82,7 @@ app.get('/', (req,res) => {
     res.sendFile(path.join(__dirname, "public", "index.html"));
 })
 
-const PORT = process.env.PORT || 5000;
+export const PORT = process.env.PORT || 10000;
 
 // listen to server
 server.listen(PORT, () => {
