@@ -82,8 +82,10 @@ app.get('/', (req,res) => {
     res.sendFile(path.join(__dirname, "public", "index.html"));
 })
 
+const PORT = process.env.PORT || 5000;
+
 // listen to server
-server.listen(5000, () => {
-    console.log("Server is listening to 5000");
+server.listen(PORT, () => {
+    console.log(`Server is listening to ${PORT}`);
     connectToDatabase();
 })
