@@ -72,15 +72,15 @@ io.on("connection", (socket) => {
     })
 })
 
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public")));
 
-// // sending response to client
-// app.get('/', (req,res) => {
-//     res.sendFile(path.join(__dirname, "public", "index.html"));
-// })
+// sending response to client
+app.get('/', (req,res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"));
+})
 
 export const PORT = process.env.PORT || 10000;
 
