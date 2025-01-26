@@ -4,12 +4,10 @@ import cors from 'cors';
 import http from 'http';
 import { connectToDatabase } from './db.config.js';
 import { ChatModel } from './chat.schema.js';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
 
 const app = express();
-
+app.use(cors());
+export const PORT = process.env.PORT || 5000;
 // create server
 const server = http.createServer(app);
 
@@ -32,6 +30,7 @@ io.on("connection", (socket) => {
     socket.on("join", async(username) => {
         const oldMessages = await ChatModel.find();
         onlineUsers.push({ id: socket.id, username });
+        // emitting
         io.emit("onlineUser", onlineUsers);
 
         ChatModel.find().sort({timestamp:1}).limit(50)
@@ -40,7 +39,7 @@ io.on("connection", (socket) => {
             }).catch(err => {
                 console.log(err);
             })
-        // socket.emit("joined", oldMessages);
+        socket.emit("joined", oldMessages);
     })
 
     // event: User sends a message
@@ -72,17 +71,15 @@ io.on("connection", (socket) => {
     })
 })
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
-app.use(express.static(path.join(__dirname, "public")));
+// app.use(express.static(path.join(__dirname, "public")));
 
 // sending response to client
-app.get('/', (req,res) => {
-    res.sendFile(path.join(__dirname, "public", "index.html"));
-})
-
-export const PORT = process.env.PORT || 10000;
+// app.get('/', (req,res) => {
+//     res.sendFile(path.join(__dirname, "public", "index.html"));
+// })
 
 // listen to server
 server.listen(PORT, () => {
