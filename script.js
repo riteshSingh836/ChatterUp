@@ -1,4 +1,4 @@
-const socket = io.connect(`http://localhost:5000`);
+const socket = io.connect(`https://chat-backend-09of.onrender.com`);
 
 const inputMessage = document.getElementById('input-msg');
 const sendButton = document.getElementById('send-btn');
